@@ -134,6 +134,7 @@
         </view>
       </view>
     </mescroll-body>
+    <cusTabbar />
   </view>
 </template>
 

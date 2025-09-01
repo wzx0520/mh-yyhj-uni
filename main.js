@@ -10,7 +10,7 @@ import MescrollUni from '@/common/mescroll-uni/mescroll-uni.vue'
 import Mixin from '@/common/mescroll-uni/mescroll-mixins.js'
 import store from 'store'
 
-import cusTabbar from "components/cus-tabbar.vue"
+import cusTabbar from "components/uni-tabbar/uni-tabbar.vue"
 
 Vue.config.productionTip = false
 
@@ -31,7 +31,7 @@ import request from './common/request'
 Vue.prototype.req = request
 
 // 注册全局组件
-Vue.component('cus-tabbar', cusTabbar)
+Vue.component('cusTabbar', cusTabbar)
 
 import share from './common/share.js'
 Vue.mixin(share)

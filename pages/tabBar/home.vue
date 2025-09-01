@@ -8,63 +8,57 @@
     <view class="home-page">
       <view class="top-header">
         <view class="title-wrap">
-          {{ site_title }}
+          羊羊盒机
         </view>
 
         <view class="carousel-wrapper">
-          <swiper class="carousel" circular :indicator-dots="indicatorDots" :autoplay="false" :interval="interval"
-            indicator-color="#ccc" indicator-active-color="#fff" previous-margin="0rpx" next-margin="0rpx"
-            :duration="duration" v-if="swiperList.length > 0">
-            <swiper-item v-for="(item, index) in swiperList" :key="index" @click="$common.bannerTo(item)">
-              <image :src="item.thumb" mode="aspectFill" lazy-load="false" binderror="" bindload=""
-                class="carousel-img" />
-              <!-- <image class="" src="" mode="aspectFit|aspectFill|widthFix" lazy-load="false" binderror="" bindload="" /> -->
-            </swiper-item>
-          </swiper>
+          <view class="invit-con">
+            <view class="invit-text">邀请好友</view>
+            <image class="invit-img" src="/static//img/invit.png" mode="widthFix"/>
+          </view>
+          <image src="/static/img/hm_banner.png" lazy-load="false" mode="widthFix" binderror="" bindload=""
+            class="carousel-img" />
+
         </view>
       </view>
 
       <view class="home-body">
+        <view class="menu-con">
+        </view>
         <view class="menu-container">
           <view class="menu-item" v-for="(item, index) in menuList" :key="index" @click="goMenu(item)">
             <image class="menu-image" :src="item.thumb" mode="widthFix" />
-            <view>
-              {{ item.title }}
+          </view>
+        </view>
+        <view class="second-container">
+          <view class="coupon-num">
+            <view class="coupon-text">优惠券</view>
+            <image class="nav-image" src="/static/img/coupon.png" mode="widthFix" />
+          </view>
+          <view class="menu-item" v-for="(item, index) in secondList" :key="index" @click="goMenu(item)">
+            <image class="menu-image" :src="item.thumb" mode="widthFix" />
+          </view>
+          <view class="coupon-num">
+            <view class="sign-con">
+              <image class="sign-img" src="/static/img/qiandao.png" mode="widthFix"/>
+              签到
             </view>
+            <image class="nav-image" src="/static/img/qiandao.png" mode="widthFix" />
           </view>
         </view>
 
-        <view class="cate-wrap">
+        <!-- <view class="cate-wrap">
           <view class="cate-item" :class="[currentIndex == index ? 'cate-item-active' : '']"
             v-for="(item, index) in cateList" @click="changeIndex(item, index)">
             {{ item.title }}
           </view>
-        </view>
-
-        <mescroll-body ref="mescrollRef" height="400" @init="mescrollInit" @down="downCallback" @up="getList"
-          :down="downOption" :up="upOption">
-          <view class="list-container">
-            <view class="list-item" v-for="(item, index) in listData" :key="item.id" @click="toDetail(item)">
-              <!-- 图片自适应比例显示 如 "16:9"、"4:3"、"1:1" 等 -->
-              <view class="image-wrap">
-                <xc-image :src="item.thumb" ratio="3:3" @load="onImageLoad(item)" :borderRadius="20" />
-                <!-- 标签元素，这里先写死为“无限抽”，实际可根据数据动态判断 -->
-                <view class="tag" :style="{ backgroundColor: tagMap(item).color }">
-                  {{ tagMap(item).text }}
-                </view>
-              </view>
-              <view class="item-title">{{ item.title }}</view>
-              <!-- 累计信息（仅“无限抽”显示） -->
-              <!-- <view class="item-count-wrap" v-if="tagMap(item).text === '无限抽'">
-                <view class="count-label">累计</view>
-                <view class="count-number">{{ item.sales || 0 }} 张</view>
-              </view> -->
-              <view class="item-price"><text>¥</text><text class="price">{{ item.price }}</text><text
-                  class="price-text">售价</text></view>
-            </view>
+          <view class="cate-item" :class="[currentIndex == index ? 'cate-item-active' : '']"
+            v-for="(item, index) in cateList" @click="changeIndex(item, index)">
+            {{ item.title }}
           </view>
-        </mescroll-body>
+        </view> -->
       </view>
+
     </view>
 
     <!-- 进群 -->
@@ -87,6 +81,7 @@
     <view class="fixed-timer">
       <CountdownCircle @click="goYFS" @finish="onFinishCountDown" />
     </view>
+    <cusTabbar />
   </view>
 </template>
 
@@ -155,18 +150,18 @@ export default {
           type: 1,
           box_type: 4
         },
-        // {
-        //   id: 4,
-        //   title: '对对碰',
-        //   type: 4,
-        //   box_type: ''
-        // },
-        // {
-        //   id: 5,
-        //   title: '爬塔',
-        //   type: 5,
-        //   box_type: ''
-        // },
+        {
+          id: 4,
+          title: '对对碰',
+          type: 4,
+          box_type: ''
+        },
+        {
+          id: 5,
+          title: '爬塔',
+          type: 5,
+          box_type: ''
+        },
         {
           id: 4,
           title: '宝箱',
@@ -179,22 +174,34 @@ export default {
       menuList: [
         {
           type: 1,
-          thumb: 'https://img.alicdn.com/imgextra/i4/2200676927379/O1CN01udPyg924Nde2V1ZYa_!!2200676927379.png',
-          title: '每日签到',
+          thumb: '/static/img/fudai.png',
+          title: '福袋',
           url: '/pages/index/sign'
         },
         {
-          type: 2, thumb: 'https://img.alicdn.com/imgextra/i1/2200676927379/O1CN01qdXmxv24Nde39W0ZO_!!2200676927379.png',
+          type: 2,
+          thumb: '/static/img/duiduipeng.png',
           title: '领券中心',
           url: '/package/mine/coupon'
         },
         {
-          type: 3, thumb: 'https://img.alicdn.com/imgextra/i4/2200676927379/O1CN019SlLKy24Nde2lTsy7_!!2200676927379.png',
+          type: 3,
+          thumb: '/static/img/yifan.png',
           title: '消费奖励',
           url: '/pages/index/consume'
         },
+
+      ],
+      secondList: [
         {
-          type: 4, thumb: 'https://img.alicdn.com/imgextra/i4/2200676927379/O1CN01U2cPtq24Nde2Dtdt4_!!2200676927379.png',
+          type: 4,
+          thumb: '/static/img/pata.png',
+          title: '羊羊好物',
+          url: '/pages/box/yinpiao'
+        },
+        {
+          type: 5,
+          thumb: '/static/img/dataosha.png',
           title: '羊羊好物',
           url: '/pages/box/yinpiao'
         }
@@ -551,19 +558,19 @@ export default {
                 url: '/pages/box/firstReward',
                 query: {
                   id: item.id,
-                  title:'一番赏'
+                  title: '一番赏'
                 }
               })
-              break 
+              break
             case 5:
-                this.$common.to({
+              this.$common.to({
                 url: '/pages/box/firstReward',
                 query: {
                   id: item.id,
-                  title:'宝箱'
+                  title: '宝箱'
                 }
               })
-              break  
+              break
             // 无限赏
             case 2:
               this.$common.to({
@@ -585,14 +592,14 @@ export default {
           }
           break
         // 对对碰
-        // case 4:
-        //   this.$common.to({
-        //     url: '/package/rightTouch/detail',
-        //     query: {
-        //       id: item.id
-        //     }
-        //   })
-        //   break
+        case 4:
+          this.$common.to({
+            url: '/package/rightTouch/detail',
+            query: {
+              id: item.id
+            }
+          })
+          break
 
       }
 
@@ -714,9 +721,9 @@ export default {
 }
 
 .home-page {
-  // background: linear-gradient(to bottom, #eefde9, #00f2fe);
-  // background: linear-gradient(to bottom, #eefde8, #ffffff);
-  background: #fff;
+  height: 100vh;
+  background: url(/static/img/hmbg.png);
+  // background-repeat: repeat;
 
 
   .top-header {
@@ -1021,10 +1028,25 @@ export default {
 .carousel-wrapper {
   margin-top: 30rpx;
 
+  .invit-con{
+    width: 220rpx;
+    position: relative;
+    display: flex;
+    margin-bottom: 30rpx;
+  }
+
+  .invit-text{
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    color: #FFFFFF;
+    z-index: 999;
+  }
+
   .carousel {
     border-radius: 20rpx;
     // overflow: hidden;
-    height: calc(100vw * 340 / 750);
+    /* height: calc(100vw * 340 / 750); */
     transform: translateY(0);
   }
 
@@ -1154,7 +1176,43 @@ export default {
   }
 
   .menu-image {
-    width: 140rpx;
+    width: 200rpx;
+  }
+}
+
+.second-container {
+  margin-top: -50rpx;
+  display: flex;
+  justify-content: space-between;
+
+  .coupon-num{
+    position: relative;
+  }
+
+  .menu-image {
+    width: 206rpx;
+  }
+
+  .nav-image {
+    width: 94rpx;
+  }
+
+  .coupon-text{
+    position: absolute;
+    writing-mode: vertical-rl;
+    top: 10%;
+    z-index: 1;
+    color: #040000;
+    font-size: 32rpx;
+  }
+
+  .coupon-con{
+    display: flex;
+    
+  }
+
+  .sign-con{
+
   }
 }
 

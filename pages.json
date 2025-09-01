@@ -67,6 +67,20 @@
       }
     },
     {
+      "path": "pages/box/roomlist",
+      "style": {
+        "enablePullDownRefresh": false,
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/box/tower",
+      "style": {
+        "enablePullDownRefresh": false,
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
       "path": "pages/box/lotteryBag",
       "style": {
         "enablePullDownRefresh": false,
@@ -74,7 +88,42 @@
       }
     },
     {
+      "path": "pages/box/test",
+      "style": {
+        "enablePullDownRefresh": false,
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/box/towerDetail",
+      "style": {
+        "enablePullDownRefresh": false,
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/box/towerDraw",
+      "style": {
+        "enablePullDownRefresh": false,
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
       "path": "pages/box/rank",
+      "style": {
+        "enablePullDownRefresh": false,
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/box/createRoom",
+      "style": {
+        "enablePullDownRefresh": false,
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/box/roomDetail",
       "style": {
         "enablePullDownRefresh": false,
         "navigationBarTextStyle": "white"
@@ -103,6 +152,13 @@
     },
     {
       "path": "pages/box/firstReward",
+      "style": {
+        "navigationBarTextStyle": "black",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/box/firstDraw",
       "style": {
         "navigationBarTextStyle": "black",
         "enablePullDownRefresh": false
@@ -194,45 +250,26 @@
     "pageOrientation": "portrait",
     "navigationStyle": "custom"
   },
-  "tabBar": {
-    "color": "#999999",
-    "selectedColor": "#2c2c2c",
-    "borderStyle": "black",
-    "backgroundColor": "#ffffff",
-    "list": [
-      {
-        "pagePath": "pages/tabBar/home",
-        "iconPath": "static/tabbar/taba.png",
-        "selectedIconPath": "static/tabbar/taba_o.png",
-        "text": "首页"
-      },
-      {
-        "pagePath": "pages/tabBar/charts",
-        "iconPath": "static/tabbar/tabb.png",
-        "selectedIconPath": "static/tabbar/tabb_o.png",
-        "text": "排行榜"
-      },
-      {
-        "pagePath": "pages/index/index",
-        "iconPath": "static/tabbar/tabc.png",
-        "selectedIconPath": "static/tabbar/tabc_o.png",
-        "text": "商城"
-      },
-      {
-        "pagePath": "pages/tabBar/bag",
-        "iconPath": "static/tabbar/tabd.png",
-        "selectedIconPath": "static/tabbar/tabd_o.png",
-        "text": "盒柜"
-      },
-      {
-        "pagePath": "pages/tabBar/my",
-        "iconPath": "static/tabbar/tabe.png",
-        "selectedIconPath": "static/tabbar/tabe_o.png",
-        "text": "我的"
-      }
-    ]
-  },
   "subPackages": [
+    {
+      "root": "package/rightTouch",
+      "pages": [
+        {
+          "path": "list",
+          "style": {
+            "navigationBarTitleText": "",
+            "enablePullDownRefresh": false
+          }
+        },
+        {
+          "path": "detail",
+          "style": {
+            "navigationBarTitleText": "",
+            "enablePullDownRefresh": false
+          }
+        }
+      ]
+    },
     {
       "root": "package/index",
       "pages": [

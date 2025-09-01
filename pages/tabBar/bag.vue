@@ -379,6 +379,7 @@
     <view class="fixed-timer">
       <CountdownCircle @click="goYFS" @finish="onFinishCountDown" />
     </view>
+    <!-- <cusTabbar /> -->
   </view>
 </template>
 
@@ -1731,7 +1732,7 @@ page {
 /* 底部工具栏整体 */
 .bottom-toolbar {
   position: fixed;
-  bottom: calc(var(--tab-bar-height, 0px));
+  bottom: 0;
   /* 基于 TabBar 高度调整 */
   left: 0;
   right: 0;

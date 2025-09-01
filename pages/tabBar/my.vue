@@ -190,7 +190,7 @@
         </view>
       </u-popup>
     </view>
-
+    <cusTabbar />
   </view>
 </template>
 
