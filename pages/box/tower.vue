@@ -230,10 +230,7 @@ export default {
           switchMusic.play()
         }
       })
-      uni.switchTab({
-        url: '/pages/tabBar/home',
-
-      });
+      uni.navigateBack()
     },
     rank () {
       this.$nextTick(() => {

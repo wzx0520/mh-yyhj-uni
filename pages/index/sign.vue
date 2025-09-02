@@ -1,112 +1,116 @@
 <template>
-  <view class="sign-container">
-    <view class="nav-bar">
-      <view class="nav-left" @click="goBack">
-        <u-icon name="arrow-left" color="#333" size="40"></u-icon>
-      </view>
-      <view class="nav-title">签到任务</view>
-    </view>
-
-    <!-- 标题 -->
-    <view class="score-wrap">
-      <view class="title">我的积分</view>
-      <view class="score">{{ coin }}</view>
-    </view>
-
-    <!-- 签到日历 -->
-    <view class="sign-card">
-      <view class="sign-grid">
-        <view v-for="(item, index) in signList" :key="index" class="sign-day" :class="[
-          item.status ? 'signed' : '',
-          index === 6 ? 'last-day' : ''
-        ]">
-          <view class="day-label">第{{ item.day }}天</view>
-
-          <!-- 遮罩层 -->
-          <view v-if="item.status" class="mask">
-            已签到
-          </view>
-          <image v-if="index === 6" class="coin-img"
-            src="https://img.alicdn.com/imgextra/i3/2200676927379/O1CN01owmomh24NdcXgD3uz_!!2200676927379.png" />
-          <image v-else class="coin-img"
-            src="https://img.alicdn.com/imgextra/i4/2200676927379/O1CN01pWpy1324NdcZ5vSha_!!2200676927379.png" />
-
-          <view class="reward-text">{{ item.points }} 积分</view>
+  <view>
+    <uni-nav-bar title="签到任务" color="#000" leftIcon="left" backgroundColor="#fff" :border="false" :statusBar="true"
+      :fixed="true" @clickLeft="$common.back()"></uni-nav-bar>
+    <view class="sign-container">
+      <view class="nav-bar">
+        <view class="nav-left">
+          <u-icon name="arrow-left" color="#333" size="40" @click="goBack"></u-icon>
         </view>
+        <view class="nav-title">签到任务</view>
       </view>
 
-      <!-- 签到按钮 -->
-      <view class="sign-btn" :class="{ 'sign-btn-disabled': has_signed_today }" @click="handleSignIn"
-        :disabled="has_signed_today">
-        {{ has_signed_today ? '今天已签到' : '立即签到' }}
+      <!-- 标题 -->
+      <view class="score-wrap">
+        <view class="title">我的积分</view>
+        <view class="score">{{ coin }}</view>
       </view>
-      <view class="sign-tip">
-        <view v-if="last_sign_date">您上次签到的日期是{{ last_sign_date }}</view>
-        <view>
-          您已累计签到 <text class="sign-days">{{ total_sign_days
-          }}</text> 天
+
+      <!-- 签到日历 -->
+      <view class="sign-card">
+        <view class="sign-grid">
+          <view v-for="(item, index) in signList" :key="index" class="sign-day" :class="[
+            item.status ? 'signed' : '',
+            index === 6 ? 'last-day' : ''
+          ]">
+            <view class="day-label">第{{ item.day }}天</view>
+
+            <!-- 遮罩层 -->
+            <view v-if="item.status" class="mask">
+              已签到
+            </view>
+            <image v-if="index === 6" class="coin-img"
+              src="https://img.alicdn.com/imgextra/i3/2200676927379/O1CN01owmomh24NdcXgD3uz_!!2200676927379.png" />
+            <image v-else class="coin-img"
+              src="https://img.alicdn.com/imgextra/i4/2200676927379/O1CN01pWpy1324NdcZ5vSha_!!2200676927379.png" />
+
+            <view class="reward-text">{{ item.points }} 积分</view>
+          </view>
         </view>
-      </view>
 
-    </view>
-
-    <u-popup v-model="showSign" mode="center" width="80%" border-radius="20" :mask-close-able="false">
-      <section class="sign-popup">
-        <!-- 顶部祝贺图 -->
-        <header class="popup-header">
-          <image class="congrats-image"
-            src="https://img.alicdn.com/imgextra/i1/2200676927379/O1CN013nQc6b24NdcX1xgHH_!!2200676927379.png"
-            mode="widthFix" />
-        </header>
-
-        <!-- 中部奖励展示 -->
-        <main class="popup-main">
-          <image class="reward-icon"
-            src="https://img.alicdn.com/imgextra/i4/2200676927379/O1CN01pWpy1324NdcZ5vSha_!!2200676927379.png"
-            mode="widthFix" />
-          <view class="reward-text">+{{ points }} 积分</view>
-        </main>
-
-        <!-- 底部按钮 -->
-        <footer class="popup-footer">
-          <view class="confirm-btn" @click="closePopup">我知道了</view>
-        </footer>
-      </section>
-    </u-popup>
-
-
-    <!-- 说明按钮 -->
-    <view class="help-btn" @click="showRule = true">
-      <image class="help-img"
-        src="https://img.alicdn.com/imgextra/i2/2200676927379/O1CN01QVx42t24NdcX9gMKF_!!2200676927379.png"
-        mode="widthFix" />
-      <view>说明</view>
-    </view>
-
-    <!-- 签到说明弹窗 -->
-    <u-popup v-model="showRule" mode="center" width="80%" border-radius="20">
-      <view class="rule-pop">
-        <view class="rule-title">
-          签到说明
+        <!-- 签到按钮 -->
+        <view class="sign-btn" :class="{ 'sign-btn-disabled': has_signed_today }" @click="handleSignIn"
+          :disabled="has_signed_today">
+          {{ has_signed_today ? '今天已签到' : '立即签到' }}
         </view>
-        <scroll-view class="rule-pop-bd" scroll-y>
-          <view class="rule-content"> 1、每日可签到一次，获得积分奖励。</view>
-          <view class="rule-content">
-            2、连续签到7天，第7天奖励更高！
+        <view class="sign-tip">
+          <view v-if="last_sign_date">您上次签到的日期是{{ last_sign_date }}</view>
+          <view>
+            您已累计签到 <text class="sign-days">{{ total_sign_days
+              }}</text> 天
           </view>
-          <view class="rule-content">
-            3、连续签到7天以上，以第7天的奖励一直叠加！
-          </view>
-          <view class="rule-content">
-            4、中断签到，则从第一天重新开始！
-          </view>
-        </scroll-view>
-      </view>
-    </u-popup>
+        </view>
 
-    <loginPopup ref="loginPopup"></loginPopup>
-    <semanticModal ref="signModal" title="提示" :content="modalContent" confirmText="继续签到" cancelText="知道了"
-      @confirm="onSignConfirm" @cancel="onSignCancel" />
+      </view>
+
+      <u-popup v-model="showSign" mode="center" width="80%" border-radius="20" :mask-close-able="false">
+        <section class="sign-popup">
+          <!-- 顶部祝贺图 -->
+          <header class="popup-header">
+            <image class="congrats-image"
+              src="https://img.alicdn.com/imgextra/i1/2200676927379/O1CN013nQc6b24NdcX1xgHH_!!2200676927379.png"
+              mode="widthFix" />
+          </header>
+
+          <!-- 中部奖励展示 -->
+          <main class="popup-main">
+            <image class="reward-icon"
+              src="https://img.alicdn.com/imgextra/i4/2200676927379/O1CN01pWpy1324NdcZ5vSha_!!2200676927379.png"
+              mode="widthFix" />
+            <view class="reward-text">+{{ points }} 积分</view>
+          </main>
+
+          <!-- 底部按钮 -->
+          <footer class="popup-footer">
+            <view class="confirm-btn" @click="closePopup">我知道了</view>
+          </footer>
+        </section>
+      </u-popup>
+
+
+      <!-- 说明按钮 -->
+      <view class="help-btn" @click="showRule = true">
+        <image class="help-img"
+          src="https://img.alicdn.com/imgextra/i2/2200676927379/O1CN01QVx42t24NdcX9gMKF_!!2200676927379.png"
+          mode="widthFix" />
+        <view>说明</view>
+      </view>
+
+      <!-- 签到说明弹窗 -->
+      <u-popup v-model="showRule" mode="center" width="80%" border-radius="20">
+        <view class="rule-pop">
+          <view class="rule-title">
+            签到说明
+          </view>
+          <scroll-view class="rule-pop-bd" scroll-y>
+            <view class="rule-content"> 1、每日可签到一次，获得积分奖励。</view>
+            <view class="rule-content">
+              2、连续签到7天，第7天奖励更高！
+            </view>
+            <view class="rule-content">
+              3、连续签到7天以上，以第7天的奖励一直叠加！
+            </view>
+            <view class="rule-content">
+              4、中断签到，则从第一天重新开始！
+            </view>
+          </scroll-view>
+        </view>
+      </u-popup>
+
+      <loginPopup ref="loginPopup"></loginPopup>
+      <semanticModal ref="signModal" title="提示" :content="modalContent" confirmText="继续签到" cancelText="知道了"
+        @confirm="onSignConfirm" @cancel="onSignCancel" />
+    </view>
   </view>
 </template>
 
@@ -114,7 +118,7 @@
 const switchMp3 = 'https://www.img.xcooo.cn/uploads/2024/02/17887756404cea30.mp3'
 const switchMusic = uni.createInnerAudioContext();
 export default {
-  data () {
+  data() {
     return {
       userInfo: '',
       signList: [],
@@ -131,25 +135,25 @@ export default {
       tempSignData: null,
     }
   },
-  onLoad () {
+  onLoad() {
     switchMusic.src = switchMp3
   },
-  onShow () {
+  onShow() {
     this.getUserInfo()
     this.getSignInfo()
   },
-  onHide () {
+  onHide() {
     console.log('页面隐藏事件')
     this.$refs.loginPopup.close();
   },
   methods: {
-    getUserInfo () {
+    getUserInfo() {
       this.$store.dispatch('getUserInfo').then(res => {
         console.log(res)
         this.userInfo = res.data
       })
     },
-    getSignInfo () {
+    getSignInfo() {
       this.req({
         url: '/v1/user/signInfo',
         success: res => {
@@ -179,7 +183,7 @@ export default {
         }
       })
     },
-    handleSignIn () {
+    handleSignIn() {
       if (!this.userInfo) {
         this.$refs.loginPopup.open()
         return
@@ -210,12 +214,12 @@ export default {
         }
       })
     },
-    onSignConfirm () {
+    onSignConfirm() {
       if (this.tempSignData) {
         this.handleSignSuccess(this.tempSignData)
       }
     },
-    handleSignSuccess (data) {
+    handleSignSuccess(data) {
       this.showSign = true
       this.points = data.points
       this.tempSignData = null
@@ -224,12 +228,12 @@ export default {
         icon: 'success'
       })
     },
-    goBack () {
+    goBack() {
       uni.switchTab({
         url: '/pages/tabBar/home',
       });
     },
-    closePopup () {
+    closePopup() {
       this.showSign = false
       this.getSignInfo()
     },
@@ -239,6 +243,7 @@ export default {
 
 <style lang="scss" scoped>
 .sign-container {
+  position: relative;
   // background: linear-gradient(to bottom, #e7f7ff, #ffffff);
   background: url("https://img.alicdn.com/imgextra/i4/2200676927379/O1CN014XOtNY24NdcXgC3Z6_!!2200676927379.png") no-repeat center center;
   background: url("https://img.alicdn.com/imgextra/i3/2200676927379/O1CN01hWLwJe24NdcZJEIHt_!!2200676927379.png") no-repeat center center;
@@ -268,7 +273,7 @@ export default {
     left: 30rpx;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 2;
+    z-index: 999;
   }
 
   .nav-title {
@@ -412,7 +417,7 @@ export default {
   right: 0rpx;
   top: 50rpx;
   // #ifdef MP-WEIXIN 
-  top:10%;
+  top: 10%;
   // #endif
   font-size: 32rpx;
   color: #000;
@@ -520,5 +525,4 @@ export default {
     color: #000;
   }
 }
-
 </style>

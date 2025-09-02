@@ -1645,9 +1645,7 @@ export default {
             if (res.data.status === 1) {
               this.levelQueueShow = true
             } else {
-              uni.switchTab({
-                url: '/pages/tabBar/home',
-              });
+              uni.navigateBack()
             }
           }
         }

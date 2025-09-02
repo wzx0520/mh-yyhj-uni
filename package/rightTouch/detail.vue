@@ -1209,9 +1209,7 @@ export default {
           switchMusic.play()
         }
       })
-      uni.switchTab({
-                url: '/pages/tabBar/home',
-              });
+      uni.navigateBack()
 
     },
     fresh () {

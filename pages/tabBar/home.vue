@@ -12,9 +12,12 @@
         </view>
 
         <view class="carousel-wrapper">
-          <view class="invit-con">
-            <view class="invit-text">邀请好友</view>
-            <image class="invit-img" src="/static//img/invit.png" mode="widthFix" />
+          <view class="invit-box">
+            <view></view>
+              <view class="invit-con" @click="onShareAppMessage" >
+                <view class="invit-text">邀请好友</view>
+                <image class="invit-img" src="/static//img/invit.png" mode="widthFix" @click="" />
+              </view>
           </view>
           <image src="/static/img/hm_banner.png" lazy-load="false" mode="widthFix" binderror="" bindload=""
             class="carousel-img" />
@@ -97,6 +100,7 @@ const bgMusic = uni.createInnerAudioContext();
 import { mapGetters } from 'vuex'
 export default {
   name: 'home',
+  onShareAppMessage(){},
   components: {
 
   },
@@ -607,7 +611,7 @@ export default {
     goList(item) {
       this.$common.to({
         url: '/pages/tabBar/goods',
-        query:item
+        query: item
       })
     },
     goRoom() {
@@ -726,7 +730,7 @@ export default {
 }
 
 .xc-top {
-  background: linear-gradient(95deg, #8bf9ba, #c0fac6, #c3edee, #c2f6f4);
+  background:url(/static/img/hmbg.png);
 }
 
 .home-page {
@@ -1028,20 +1032,22 @@ export default {
       margin-bottom: 40rpx;
     }
 
-    .link-btn {
-      // margin: 0 20rpx;
-    }
   }
 }
 
 .carousel-wrapper {
   margin-top: 30rpx;
 
+  .invit-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30rpx;
+  }
+
   .invit-con {
     width: 220rpx;
     position: relative;
-    display: flex;
-    margin-bottom: 30rpx;
+
   }
 
   .invit-text {

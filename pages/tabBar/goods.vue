@@ -1,30 +1,33 @@
 <template>
-  <view class="home-body">
-    <mescroll-body ref="mescrollRef" height="400" @init="mescrollInit" @down="downCallback" @up="getList"
-      :down="downOption" :up="upOption">
-      <view class="list-container">
-        <view class="list-item" v-for="(item, index) in listData" :key="item.id" @click="toDetail(item)">
-          <!-- 图片自适应比例显示 如 "16:9"、"4:3"、"1:1" 等 -->
-          <view class="image-wrap">
-            <xc-image :src="item.thumb" ratio="3:3" @load="onImageLoad(item)" :borderRadius="20" />
-            <!-- 标签元素，这里先写死为“无限抽”，实际可根据数据动态判断 -->
-            <view class="tag" :style="{ backgroundColor: tagMap(item).color }">
-              {{ tagMap(item).text }}
-            </view>
-          </view>
-          <view class="item-title">{{ item.title }}</view>
-          <!-- 累计信息（仅“无限抽”显示） -->
-          <!-- <view class="item-count-wrap" v-if="tagMap(item).text === '无限抽'">
+  <view>
+      <uni-nav-bar :title="optionsData.title" color="#000" leftIcon="left" backgroundColor="#fff" :border="false" :statusBar="true"
+      :fixed="true" @clickLeft="$common.back()"></uni-nav-bar>
+        <view class="home-body">
+          <mescroll-body ref="mescrollRef" height="400" @init="mescrollInit" @down="downCallback" @up="getList"
+            :down="downOption" :up="upOption">
+            <view class="list-container">
+              <view class="list-item" v-for="(item, index) in listData" :key="item.id" @click="toDetail(item)">
+                <!-- 图片自适应比例显示 如 "16:9"、"4:3"、"1:1" 等 -->
+                <view class="image-wrap">
+                  <xc-image :src="item.thumb" ratio="3:3" @load="onImageLoad(item)" :borderRadius="20" />
+                  <!-- 标签元素，这里先写死为“无限抽”，实际可根据数据动态判断 -->
+                  <view class="tag" :style="{ backgroundColor: tagMap(item).color }">
+                    {{ tagMap(item).text }}
+                  </view>
+                </view>
+                <view class="item-title">{{ item.title }}</view>
+                <!-- 累计信息（仅“无限抽”显示） -->
+                <!-- <view class="item-count-wrap" v-if="tagMap(item).text === '无限抽'">
                 <view class="count-label">累计</view>
                 <view class="count-number">{{ item.sales || 0 }} 张</view>
               </view> -->
-          <view class="item-price"><text>¥</text><text class="price">{{ item.price }}</text><text
-              class="price-text">售价</text></view>
+                <view class="item-price"><text>¥</text><text class="price">{{ item.price }}</text><text
+                    class="price-text">售价</text></view>
+              </view>
+            </view>
+          </mescroll-body>
         </view>
-      </view>
-    </mescroll-body>
-    <cusTabbar />
-  </view>
+    </view>
 </template>
 
 
@@ -37,7 +40,7 @@ export default {
   components: {
 
   },
-  data(options) {
+  data() {
     return {
       show: false,
       showHome: false,
@@ -129,8 +132,8 @@ export default {
   },
   onLoad(options) {
     this.optionsData = options
-    console.log(this.optionsData,'1111');
-    
+    console.log(this.optionsData, '1111');
+
 
   },
   onShow() {
@@ -146,7 +149,7 @@ export default {
     // 计算属性：生成每个item对应的标签信息映射
     tagMap() {
       return (item) => {
-        
+
         const { type, box_type } = item;
 
         // 基础默认值
@@ -171,35 +174,6 @@ export default {
     onImageLoad(item) {
       this.$set(item, 'loaded', true);
     },
-    // changeIndex(item, index) {
-    //   if (item.id == 5) {
-    //     this.$common.to({
-    //       url: '/pages/box/tower'
-    //     })
-    //   } else {
-    //     this.currentIndex = index
-    //     if (item.sort) {
-    //       if (item.sortType !== 4) {
-    //         item.sortType = 4
-    //       } else {
-    //         item.sortType = 5
-    //       }
-    //     } else {
-    //       this.cateList.map(item => {
-    //         item.sortType = ''
-    //       })
-    //     }
-    //     if (item.is_new) {
-    //       this.is_new = 2
-    //     } else {
-    //       this.is_new = ''
-    //     }
-    //     this.listData = []
-    //     this.mescroll.resetUpScroll()
-    //     this.mescroll.scrollTo(0, 0)
-    //   }
-
-    // },
     playMusic() {
       this.muteBgMusic = !this.muteBgMusic;
       this.$nextTick(() => {
@@ -508,100 +482,103 @@ export default {
   padding: 0 30rpx;
 }
 
-/* // 列表项目 */
+.top-header {
+  padding: 0 30rpx;
+  padding-top: 20rpx;
+}
+
 .list-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20rpx;
   padding: 50rpx 0;
+}
 
-  .list-item {
-    padding: 20rpx;
-    background-color: #fff;
-    box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.1);
-    border-radius: 10rpx;
-    overflow: hidden;
-  }
+.list-item {
+  padding: 20rpx;
+  background-color: #fff;
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.1);
+  border-radius: 10rpx;
+  overflow: hidden;
+}
 
-  .image-wrap {
-    position: relative;
-    /* 开启相对定位，为标签绝对定位做准备 */
-  }
+.image-wrap {
+  position: relative;
+  /* 开启相对定位，为标签绝对定位做准备 */
+}
 
-  .tag {
-    position: absolute;
-    top: 0rpx;
-    left: 0rpx;
-    background-color: #FF9900;
-    /* 标签背景色，可按需调整 */
-    color: #fff;
-    font-size: 24rpx;
-    padding: 10rpx 20rpx;
-    border-radius: 20rpx;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0;
-    z-index: 1;
-    /* 保证标签在图片上方 */
-  }
+.tag {
+  position: absolute;
+  top: 0rpx;
+  left: 0rpx;
+  background-color: #FF9900;
+  /* 标签背景色，可按需调整 */
+  color: #fff;
+  font-size: 24rpx;
+  padding: 10rpx 20rpx;
+  border-radius: 20rpx;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0;
+  z-index: 1;
+  /* 保证标签在图片上方 */
+}
 
-  .item-title {
-    font-size: 28rpx;
-    color: #333;
-    margin-top: 10rpx;
-    text-align: left;
-    padding: 0 20rpx;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-  }
+.item-title {
+  font-size: 28rpx;
+  color: #333;
+  margin-top: 10rpx;
+  text-align: left;
+  padding: 0 20rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
-  /* 累计信息外层容器 */
-  .item-count-wrap {
-    display: flex;
-    align-items: center;
-    margin-top: 20rpx;
+/* 累计信息外层容器 */
+.item-count-wrap {
+  display: flex;
+  align-items: center;
+  margin-top: 20rpx;
+}
 
-    /* “累计”标签样式 */
-    .count-label {
-      background-color: #333;
-      /* 深色背景，可按需调整 */
-      color: #fff;
-      font-size: 24rpx;
-      padding: 4rpx 8rpx;
-      border-radius: 20rpx;
-    }
+/* “累计”标签样式 */
+.count-label {
+  background-color: #333;
+  /* 深色背景，可按需调整 */
+  color: #fff;
+  font-size: 24rpx;
+  padding: 4rpx 8rpx;
+  border-radius: 20rpx;
+}
 
-    /* 数量样式 */
-    .count-number {
-      background-color: #f2f2f2;
-      color: #999;
-      font-size: 24rpx;
-      padding: 4rpx 8rpx;
-      border-radius: 20rpx;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      min-width: 100rpx;
-      text-align: center;
-    }
-  }
-
+/* 数量样式 */
+.count-number {
+  background-color: #f2f2f2;
+  color: #999;
+  font-size: 24rpx;
+  padding: 4rpx 8rpx;
+  border-radius: 20rpx;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  min-width: 100rpx;
+  text-align: center;
+}
 
 
-  .item-price {
-    font-size: 24rpx;
-    color: #000;
-    padding: 20rpx 20rpx;
-    font-weight: 700;
 
-    .price {
-      font-size: 32rpx;
-    }
+.item-price {
+  font-size: 24rpx;
+  color: #000;
+  padding: 20rpx 20rpx;
+  font-weight: 700;
+}
 
-    .price-text {
-      color: #999;
-      margin-left: 10rpx;
-    }
-  }
+.price {
+  font-size: 32rpx;
+}
+
+.price-text {
+  color: #999;
+  margin-left: 10rpx;
 }
 </style>

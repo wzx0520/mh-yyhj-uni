@@ -5,13 +5,8 @@
 -->
 <template>
   <view class="page-wrap">
-    <uni-nav-bar title="盒柜" color="#000" backgroundColor="#fff" :border="false" :statusBar="true" :fixed="true">
-      <!-- <block slot="left">
-        <view @click="$common.to({
-          url: '/package/mine/zz',
-        })">转赠记录</view>
-      </block> -->
-    </uni-nav-bar>
+    <uni-nav-bar title="盒柜" color="#000" leftIcon="left" backgroundColor="#fff" :border="false" :statusBar="true"
+      :fixed="true" @clickLeft="$common.back()"></uni-nav-bar>
 
     <view class="tab-list-content" :style="{
       top: `calc(${sysConfig.statusBarHeight}px + 44px)`
