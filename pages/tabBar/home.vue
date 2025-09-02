@@ -14,7 +14,7 @@
         <view class="carousel-wrapper">
           <view class="invit-con">
             <view class="invit-text">邀请好友</view>
-            <image class="invit-img" src="/static//img/invit.png" mode="widthFix"/>
+            <image class="invit-img" src="/static//img/invit.png" mode="widthFix" />
           </view>
           <image src="/static/img/hm_banner.png" lazy-load="false" mode="widthFix" binderror="" bindload=""
             class="carousel-img" />
@@ -26,24 +26,28 @@
         <view class="menu-con">
         </view>
         <view class="menu-container">
-          <view class="menu-item" v-for="(item, index) in menuList" :key="index" @click="goMenu(item)">
+          <view class="menu-item" v-for="(item, index) in menuList" :key="index" @click="goList(item)">
             <image class="menu-image" :src="item.thumb" mode="widthFix" />
           </view>
         </view>
         <view class="second-container">
           <view class="coupon-num">
-            <view class="coupon-text">优惠券</view>
-            <image class="nav-image" src="/static/img/coupon.png" mode="widthFix" />
+            <view class="coupon-con" @click="goMenu({ url: '/package/mine/coupon' })">
+              <view class="coupon-text">优惠券</view>
+              <image class="nav-image" src="/static/img/coupon.png" mode="widthFix" />
+            </view>
           </view>
           <view class="menu-item" v-for="(item, index) in secondList" :key="index" @click="goMenu(item)">
             <image class="menu-image" :src="item.thumb" mode="widthFix" />
           </view>
           <view class="coupon-num">
-            <view class="sign-con">
-              <image class="sign-img" src="/static/img/qiandao.png" mode="widthFix"/>
-              签到
+            <view class="sign-con" @click="goMenu({ url: '/pages/index/sign' })">
+              <image class="nav-image" src="/static/img/qiandao.png" mode="widthFix" />
+              <view class="sign-box">
+                <image class="sign-icon" src="/static/img/sign-icon.png" mode="widthFix" />
+                <view class="sign-text">签到</view>
+              </view>
             </view>
-            <image class="nav-image" src="/static/img/qiandao.png" mode="widthFix" />
           </view>
         </view>
 
@@ -173,22 +177,25 @@ export default {
       site_title: '',
       menuList: [
         {
-          type: 1,
           thumb: '/static/img/fudai.png',
+          id: 3,
           title: '福袋',
-          url: '/pages/index/sign'
+          type: 1,
+          box_type: 4
         },
         {
-          type: 2,
           thumb: '/static/img/duiduipeng.png',
-          title: '领券中心',
-          url: '/package/mine/coupon'
+          id: 4,
+          title: '对对碰',
+          type: 4,
+          box_type: ''
         },
         {
-          type: 3,
           thumb: '/static/img/yifan.png',
-          title: '消费奖励',
-          url: '/pages/index/consume'
+          id: 1,
+          title: '一番赏',
+          type: 1,
+          box_type: 1
         },
 
       ],
@@ -196,14 +203,13 @@ export default {
         {
           type: 4,
           thumb: '/static/img/pata.png',
-          title: '羊羊好物',
-          url: '/pages/box/yinpiao'
+          title: '爬塔',
+          url: '/pages/box/tower'
         },
         {
           type: 5,
           thumb: '/static/img/dataosha.png',
           title: '羊羊好物',
-          url: '/pages/box/yinpiao'
         }
       ],
       userInfo: '',
@@ -353,19 +359,13 @@ export default {
     },
     jump() {
       uni.navigateTo({
-        url: '/pages/index/web-view?url=https://mp.weixin.qq.com/s?__biz=Mzg3NDY2Njg2MQ==&tempkey=MTI2N19WL29GSlhRMm9kWTBZNTdHeFNHR1U3X2RBaDMwNDIydVlnR3prQ2FDdnJmNGhxVDBORTV6MTY1QW9BWmNRalo5QTNVVmw2dUFyNVFLSWI2azRqZDFFV1FiXzRtOUJxNFhPRnVfaW01ekg2VGVqRGxyMktvdk9Kdlp4X2xmM1hmemI4c0xPLUc2S2JyeVlJYlBUOVBUTW1qOWhjdElpd1R2UFBBUDBnfn4%3D&chksm=4ecc0f3579bb8623030d4931b5f19995fae2b69ef8ed909f1cbbe68cda5e90a44102c5a93430#rd',
+        url: '/pages/index/web-view?url=http://dts.yi-ruan.com/',
         success: (result) => {
 
         },
         fail: () => { },
         complete: () => { }
       });
-    },
-    jump2() {
-      console.log(123)
-      uni.navigateTo({
-        url: 'https://www.cwhm1.xcooo.cn/#/'
-      })
     },
     getSwiperList() {
       /* 获取轮播图 */
@@ -604,6 +604,12 @@ export default {
       }
 
     },
+    goList(item) {
+      this.$common.to({
+        url: '/pages/tabBar/goods',
+        query:item
+      })
+    },
     goRoom() {
       this.$common.to({
         url: '/package/rightTouch/list'
@@ -615,6 +621,9 @@ export default {
       })
     },
     goMenu(item) {
+      if (item.type === 5) {
+        this.jump()
+      }
       this.$common.to({
         url: item.url,
       })
@@ -1028,14 +1037,14 @@ export default {
 .carousel-wrapper {
   margin-top: 30rpx;
 
-  .invit-con{
+  .invit-con {
     width: 220rpx;
     position: relative;
     display: flex;
     margin-bottom: 30rpx;
   }
 
-  .invit-text{
+  .invit-text {
     position: absolute;
     top: 40%;
     left: 10%;
@@ -1185,7 +1194,7 @@ export default {
   display: flex;
   justify-content: space-between;
 
-  .coupon-num{
+  .coupon-num {
     position: relative;
   }
 
@@ -1197,22 +1206,48 @@ export default {
     width: 94rpx;
   }
 
-  .coupon-text{
+  .coupon-text {
     position: absolute;
     writing-mode: vertical-rl;
-    top: 10%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 1;
     color: #040000;
     font-size: 32rpx;
+    font-weight: 700;
   }
 
-  .coupon-con{
+  .coupon-con {
+    position: relative;
+
+  }
+
+  .sign-con {
+    position: relative;
+  }
+
+  .sign-icon {
+    width: 50rpx;
+
+  }
+
+  .sign-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
-    
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
-  .sign-con{
-
+  .sign-text {
+    color: #040000;
+    font-weight: 700;
+    font-size: 32rpx;
+    writing-mode: vertical-rl;
   }
 }
 

@@ -43,8 +43,6 @@ export default {
     // #endif
 
     // #ifdef H5
-    console.log("%cxcooo ", "font-size: 50px;background: #EEE url(data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAHklEQVQImWNkYGBgYGD4//8/A5wF5SBYyAr+//8PAPOCFO0Q2zq7AAAAAElFTkSuQmCC) repeat; text-shadow: 5px -5px black, 4px -4px white;  font-weight: bold;  -webkit-text-fill-color: transparent;  -webkit-background-clip: text;");
-    console.log("%c%s", "color: blue; font-size: 16px;", "邮箱602006050@qq.com \n\n你可以通过 https://www.xcooo.cn 了解我们 ");
     // #endif
 
   },

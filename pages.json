@@ -30,6 +30,12 @@
       }
     },
     {
+      "path": "pages/tabBar/goods",
+      "style": {
+        "enablePullDownRefresh": false
+      }
+    },
+    {
       "path": "pages/tabBar/mall",
       "style": {
         "enablePullDownRefresh": false
@@ -131,20 +137,6 @@
     },
     {
       "path": "pages/box/kaixiang",
-      "style": {
-        "navigationBarTextStyle": "black",
-        "enablePullDownRefresh": false
-      }
-    },
-    {
-      "path": "pages/box/yinpiao",
-      "style": {
-        "navigationBarTextStyle": "black",
-        "enablePullDownRefresh": false
-      }
-    },
-    {
-      "path": "pages/box/yinpiaoDetail",
       "style": {
         "navigationBarTextStyle": "black",
         "enablePullDownRefresh": false

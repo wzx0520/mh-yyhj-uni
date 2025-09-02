@@ -482,13 +482,6 @@ export default {
       }
 
       window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${this.appId}&redirect_uri=${this.redirect_uri}&response_type=code&scope=snsapi_userinfo&state=#wechat_redirect`
-
-      // 资深全栈架构师开发,请联系QQ:602006050
-      // window.location.href = `http://www.api-redirect.xcooo.cn/get-weixin-code.html?appid=${this.appId}&redirect_uri=${this.redirect_uri}&response_type=code&scope=snsapi_userinfo&state=#wechat_redirect`
-
-      // this.wxH5Code = this.getUrlCode().code // 截取code
-      // if (this.wxH5Code == null || this.wxH5Code === '') { // 如果没有code，则去请求
-      // }
     },
     getOpenid () { //获取opendi
       this.req({
